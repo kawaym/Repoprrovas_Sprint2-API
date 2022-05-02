@@ -1,6 +1,6 @@
 import { prisma } from "../database.js";
 
-async function getTestsByDiscipline() {
+async function getTestsByDiscipline(query: string = "") {
   return prisma.term.findMany({
     include: {
       disciplines: {
@@ -22,12 +22,13 @@ async function getTestsByDiscipline() {
             },
           },
         },
+        where: { name: { contains: query } },
       },
     },
   });
 }
 
-async function getTestsByTeachers() {
+async function getTestsByTeachers(query: string = "") {
   return prisma.teacherDiscipline.findMany({
     include: {
       teacher: true,
@@ -44,6 +45,7 @@ async function getTestsByTeachers() {
         },
       },
     },
+    where: { teacher: { name: { contains: query } } },
   });
 }
 
@@ -97,6 +99,10 @@ async function addView(id: number) {
     },
   });
 }
+
+async function searchTest(query: string) {
+  return prisma.test.findMany({ where: { name: { contains: "" } } });
+}
 export default {
   getTestsByDiscipline,
   getTestsByTeachers,
@@ -105,4 +111,5 @@ export default {
   create,
   getTestById,
   addView,
+  searchTest,
 };

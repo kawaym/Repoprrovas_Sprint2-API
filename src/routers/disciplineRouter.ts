@@ -7,7 +7,12 @@ const disciplineRouter = Router();
 disciplineRouter.get(
   "/disciplines",
   ensureAuthenticatedMiddleware,
-  disciplineController.findMany
+  disciplineController.search
+);
+disciplineRouter.get(
+  "/search/disciplines",
+  ensureAuthenticatedMiddleware,
+  disciplineController.search
 );
 
 export default disciplineRouter;

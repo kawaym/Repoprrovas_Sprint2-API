@@ -10,8 +10,12 @@ async function findByDiscipline(id: number) {
 async function findUnique(id: number) {
   return prisma.teacher.findUnique({ where: { id } });
 }
+async function findMany(query: string = "") {
+  return prisma.teacher.findMany({ where: { name: { contains: query } } });
+}
 
 export default {
   findByDiscipline,
   findUnique,
+  findMany,
 };

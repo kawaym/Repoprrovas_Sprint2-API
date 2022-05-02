@@ -17,5 +17,10 @@ testRouter.put(
   ensureAuthenticatedMiddleware,
   testController.addView
 );
+testRouter.get(
+  "/app",
+  ensureAuthenticatedMiddleware,
+  testController.searchTest
+);
 
 export default testRouter;

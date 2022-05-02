@@ -8,13 +8,14 @@ import { conflictError, notFoundError } from "../utils/errorUtils.js";
 
 interface Filter {
   groupBy: "disciplines" | "teachers";
+  query: string;
 }
 
 async function find(filter: Filter) {
   if (filter.groupBy === "disciplines") {
-    return testRepository.getTestsByDiscipline();
+    return testRepository.getTestsByDiscipline(filter.query);
   } else if (filter.groupBy === "teachers") {
-    return testRepository.getTestsByTeachers();
+    return testRepository.getTestsByTeachers(filter.query);
   }
 }
 
@@ -45,8 +46,13 @@ async function addView(id: number) {
   await testRepository.addView(id);
 }
 
+async function searchTest(query: string) {
+  return testRepository.searchTest(query);
+}
+
 export default {
   find,
   create,
   addView,
+  searchTest,
 };

@@ -9,5 +9,10 @@ teacherRouter.get(
   ensureAuthenticatedMiddleware,
   teacherController.findByDiscipline
 );
+teacherRouter.get(
+  "/search/teachers",
+  ensureAuthenticatedMiddleware,
+  teacherController.search
+);
 
 export default teacherRouter;

@@ -12,7 +12,19 @@ async function findByDiscipline(req: Request, res: Response) {
   const teachers = await teacherService.findByDiscipline(parseInt(id));
   res.send({ teachers });
 }
+async function findMany(req: Request, res: Response) {
+  const teachers = await teacherService.findMany();
+  res.send({ teachers });
+}
+
+async function search(req: Request, res: Response) {
+  const { search } = req.query as { search: string };
+  const teachers = await teacherService.search(search);
+  res.send({ teachers });
+}
 
 export default {
   findByDiscipline,
+  findMany,
+  search,
 };
