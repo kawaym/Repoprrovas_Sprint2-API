@@ -9,6 +9,7 @@ async function find(req: Request, res: Response) {
   }
 
   const tests = await testService.find({ groupBy });
+  if (groupBy === "disciplines") console.log(tests);
   res.send({ tests });
 }
 
@@ -19,8 +20,14 @@ async function create(req: Request, res: Response) {
 
   res.sendStatus(201);
 }
+async function addView(req: Request, res: Response) {
+  const { id } = req.query as { id: string };
+  await testService.addView(parseInt(id));
+  res.sendStatus(200);
+}
 
 export default {
   find,
   create,
+  addView,
 };

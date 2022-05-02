@@ -9,7 +9,13 @@ async function getTestsByDiscipline() {
             include: {
               teacher: true,
               tests: {
-                include: {
+                select: {
+                  id: true,
+                  name: true,
+                  pdfUrl: true,
+                  views: true,
+                  categoryId: true,
+                  teacherDisciplineId: true,
                   category: true,
                 },
               },
@@ -27,7 +33,13 @@ async function getTestsByTeachers() {
       teacher: true,
       discipline: true,
       tests: {
-        include: {
+        select: {
+          id: true,
+          name: true,
+          pdfUrl: true,
+          views: true,
+          categoryId: true,
+          teacherDisciplineId: true,
           category: true,
         },
       },
@@ -73,10 +85,24 @@ async function create(test: TestCreationData) {
   });
 }
 
+async function getTestById(id: number) {
+  return prisma.test.findUnique({ where: { id } });
+}
+
+async function addView(id: number) {
+  return prisma.test.update({
+    where: { id },
+    data: {
+      views: { increment: 1 },
+    },
+  });
+}
 export default {
   getTestsByDiscipline,
   getTestsByTeachers,
   getTestByName,
   getTestByData,
   create,
+  getTestById,
+  addView,
 };

@@ -37,7 +37,16 @@ async function create(data: TestCreationData) {
   await testRepository.create(data);
 }
 
+async function addView(id: number) {
+  const existingTest = await testRepository.getTestById(id);
+
+  if (!existingTest) throw notFoundError("Test doesn't exist");
+
+  await testRepository.addView(id);
+}
+
 export default {
   find,
   create,
+  addView,
 };
