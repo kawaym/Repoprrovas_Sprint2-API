@@ -4,9 +4,6 @@ import testService from "../services/testService.js";
 async function find(req: Request, res: Response) {
   const { groupBy, search } = req.query as { groupBy: string; search: string };
 
-  console.log(search);
-  console.log("======");
-
   if (groupBy !== "disciplines" && groupBy !== "teachers") {
     return res.sendStatus(400);
   }
